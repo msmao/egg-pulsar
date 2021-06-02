@@ -24,13 +24,14 @@
 Description here.
 -->
 
+[中文文档](README.zh-CN.md)
+
 ## Install
 
-// 根据 OS 安装 pulsar-client-dev 依赖
-https://pulsar.apache.org/docs/en/client-libraries-cpp/
-
-// macOS 
 ```bash
+// install pulsar-client-dev lib for macOS
+// https://pulsar.apache.org/docs/en/client-libraries-cpp/
+
 brew install libpulsar
 ```
 
@@ -53,6 +54,19 @@ exports.pulsar = {
 ```js
 // {app_root}/config/config.default.js
 exports.pulsar = {
+  client: {
+    url: 'pulsar://localhost:6650',
+    options: {
+      operationTimeoutSeconds: 30,
+    },
+    subscribe: {
+      topic: 'persistent://public/default/my-topic',
+      subscription: 'sub1',
+      subscriptionType: 'Shared',
+      ackTimeoutMs: 10000,
+      listener: 'xxx', // 对应 app/subscriber/xxx
+    },
+  }
 };
 ```
 
@@ -60,7 +74,42 @@ see [config/config.default.js](config/config.default.js) for more detail.
 
 ## Example
 
-<!-- example here -->
+### Producer Send Message
+
+```js
+
+await this.app.pulsar.send({ now: Date.now() }, 'my-topic');
+
+await this.app.pulsar.send({ now: Date.now() }, { topic: 'my-topic' });
+
+await this.app.pulsar.send({ data: { now: Date.now() }, properties: [ 'a', 'c' ] }, { topic: 'my-topic' });
+
+```
+
+#### Consumer Message Of Subscriber
+
+```js
+// {app_root}/app/subscriber/test.js
+'use strict';
+const debug = require('debug')('subscriber');
+
+class TestSubscriber {
+
+  constructor(ctx) {
+    this.ctx = ctx;
+    this.app = ctx.app;
+  }
+
+  async consume(message) {
+    debug('message: %s', JSON.stringify(message));
+    console.log(message);
+    // throw ('consume message error');
+  }
+
+}
+
+module.exports = TestSubscriber;
+```
 
 ## Questions & Suggestions
 

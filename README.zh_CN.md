@@ -24,7 +24,12 @@
 Description here.
 -->
 
+[English](README.md)
+
 ## 依赖说明
+
+// 根据 OS 安装 pulsar-client-dev 依赖
+https://pulsar.apache.org/docs/en/client-libraries-cpp/
 
 ### 依赖的 egg 版本
 
