@@ -26,6 +26,14 @@ Description here.
 
 ## Install
 
+// 根据 OS 安装 pulsar-client-dev 依赖
+https://pulsar.apache.org/docs/en/client-libraries-cpp/
+
+// macOS 
+```bash
+brew install libpulsar
+```
+
 ```bash
 $ npm i egg-pulsar --save
 ```
