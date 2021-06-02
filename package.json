@@ -1,6 +1,6 @@
 {
   "name": "egg-pulsar",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "pulsar plugin for egg",
   "eggPlugin": {
     "name": "pulsar"
